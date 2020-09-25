@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Lecture extends Model
 {
     use HasFactory;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function participant()
+    {
+        return $this->belongsTo('App\Models\Participant', 'participant_id');
+    }
 }

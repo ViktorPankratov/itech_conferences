@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Conference\LectureController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('lecture/{id}', [LectureController::class, 'show'])->name('conference.lecture');
