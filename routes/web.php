@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Conference\LectureController;
+use App\Http\Controllers\Conference\ParticipantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('lecture/{id}', [LectureController::class, 'show'])->name('conference.lecture');
+Route::get('conference/{conferenceId}/participants', [ParticipantController::class, 'index'])->name('conference.participants');
