@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Conference;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ParticipantRepository;
+use App\Repositories\ConferenceRepository;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
@@ -14,11 +15,17 @@ class ParticipantController extends Controller
     protected $participantRepository;
 
     /**
+     * @var ConferenceRepository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    protected $conferenceRepository;
+
+    /**
      * ParticipantController constructor.
      */
     public function __construct()
     {
         $this->participantRepository = app(ParticipantRepository::class);
+        $this->conferenceRepository = app(ConferenceRepository::class);
     }
 
     /**
@@ -27,9 +34,10 @@ class ParticipantController extends Controller
      */
     public function index($conferenceId)
     {
+        $conferenceDetail = $this->conferenceRepository->getItem($conferenceId);
         $participantPaginator = $this->participantRepository->getConferenceParticipants($conferenceId, 10);
         return view('conference.participants',
-            compact('participantPaginator'));
+            compact(['conferenceDetail', 'participantPaginator']));
     }
 
     /**

@@ -3,26 +3,22 @@
 namespace App\Http\Controllers\Conference;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ConferenceRepository;
 use Illuminate\Http\Request;
-use App\Repositories\LectureRepository;
 
-/**
- * Class LectureController
- * @package App\Http\Controllers\Conference
- */
-class LectureController extends Controller
+class ConferenceController extends Controller
 {
     /**
-     * @var \Illuminate\Contracts\Foundation\Application|mixed|LectureRepository
+     * @var ConferenceRepository|\Illuminate\Contracts\Foundation\Application|mixed
      */
-    protected $lectureRepository;
+    protected $conferenceRepository;
 
     /**
-     * LectureController constructor.
+     * ConferenceController constructor.
      */
     public function __construct()
     {
-        $this->lectureRepository = app(LectureRepository::class);
+        $this->conferenceRepository = app(ConferenceRepository::class);
     }
 
     /**
@@ -30,7 +26,7 @@ class LectureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($conferenceId)
+    public function index()
     {
         //
     }
@@ -62,9 +58,10 @@ class LectureController extends Controller
      */
     public function show($id)
     {
-        $lectureItem = $this->lectureRepository->getItem($id);
-        return view('lecture',
-            compact('lectureItem'));
+        $conferenceDetail = $this->conferenceRepository->getItem($id);
+        $conferenceLecturesPaginator = $this->conferenceRepository->getConferenceLectures($id);
+        return view('conference.conference',
+            compact(['conferenceDetail', 'conferenceLecturesPaginator']));
     }
 
     /**
