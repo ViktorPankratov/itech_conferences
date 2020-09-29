@@ -63,7 +63,7 @@ class LectureController extends Controller
     public function show($id)
     {
         $lectureItem = $this->lectureRepository->getItem($id);
-        return view('lecture',
+        return view('conference.lectures.show',
             compact('lectureItem'));
     }
 

@@ -60,7 +60,7 @@ class ConferenceController extends Controller
     {
         $conferenceDetail = $this->conferenceRepository->getItem($id);
         $conferenceLecturesPaginator = $this->conferenceRepository->getConferenceLectures($id);
-        return view('conference.conference',
+        return view('conference.show',
             compact(['conferenceDetail', 'conferenceLecturesPaginator']));
     }
 

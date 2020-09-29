@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('lecture/{id}', [LectureController::class, 'show'])->name('lecture');
-Route::get('conference/{conferenceId}', [ConferenceController::class, 'show'])->name('conference');
-Route::get('conference/{conferenceId}/participants', [ParticipantController::class, 'index'])->name('conference.participants');
+Route::get('lecture/{id}', [LectureController::class, 'show'])->name('conference.lectures.show');
+Route::get('conference/{conferenceId}', [ConferenceController::class, 'show'])->name('conference.show');
+Route::get('conference/{conferenceId}/participants', [ParticipantController::class, 'index'])->name('conference.participants.index');
+Route::get('conference/{conferenceId}/participants/create', [ParticipantController::class, 'create'])->name('conference.participants.create');
+Route::post('conference/{conferenceId}/participants/store', [ParticipantController::class, 'store'])->name('conference.participants.store');
