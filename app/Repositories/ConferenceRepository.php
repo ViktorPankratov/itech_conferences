@@ -7,6 +7,7 @@ use App\Models\Conference as Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class ConferenceRepository
@@ -29,6 +30,24 @@ class ConferenceRepository extends CoreRepository
     public function getItem($id)
     {
         return $this->startConditions()->findOrFail($id);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getListForSidebar()
+    {
+        $columns = [
+            'id',
+            'name',
+            'start_time'
+        ];
+        $result = $this->startConditions()
+            ->select($columns)
+            ->orderBy('start_time', 'DESC')
+            ->toBase()
+            ->get();
+        return $result;
     }
 
     /**
