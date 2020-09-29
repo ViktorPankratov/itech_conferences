@@ -3,6 +3,7 @@
 use App\Http\Controllers\Conference\LectureController;
 use App\Http\Controllers\Conference\ParticipantController;
 use App\Http\Controllers\Conference\ConferenceController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('lecture/{id}', [LectureController::class, 'show'])->name('conference.lectures.show');
 Route::get('conference/{conferenceId}', [ConferenceController::class, 'show'])->name('conference.show');
