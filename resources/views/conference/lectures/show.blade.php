@@ -8,8 +8,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                    <a class="btn btn-primary" href="#">
-                        {{ __('Back to list') }}
+                    <a class="btn btn-primary" href="{{ route('conference.show', $lectureItem->conference_id) }}">
+                        {{ __('Back to conference') }}
                     </a>
                 </nav>
                 <div class="card">

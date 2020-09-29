@@ -42,7 +42,11 @@
                         @foreach ($conferenceLecturesPaginator as $item)
                             @php /** @var \App\Models\Lecture $item **/  @endphp
                             <tr>
-                                <td>{{ $item->title }}</td>
+                                <td>
+                                    <a href="{{ route('conference.lectures.show', $item->id) }}">
+                                        {{ $item->title }}
+                                    </a>
+                                    </td>
                                 <td>{{ $item->participant_full_name }}</td>
                                 <td>{{ $item->department_name }}</td>
                             </tr>
