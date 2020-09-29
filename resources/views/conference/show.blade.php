@@ -9,6 +9,18 @@
         @include('conference.includes.conference_list')
     </div>
     <div class="container">
+        @if (session('participant_save_success'))
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        {{ session()->get('participant_save_success') }}
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <nav class="navbar navbar-light navbar-laravel">

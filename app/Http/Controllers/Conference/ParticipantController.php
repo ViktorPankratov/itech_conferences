@@ -85,8 +85,8 @@ class ParticipantController extends Controller
         }
 
         if ($participantResult && $lectureResult) {
-            return redirect()->route('conference.participants.create', $conferenceId)
-                ->with(['success' => __("Record successfully saved")]);
+            return redirect()->route('conference.show', $conferenceId)
+                ->with(['participant_save_success' => __("Successfully registered for conference")]);
         } else {
             return back()
                 ->withErrors(['msg' => __('Record save error')])
