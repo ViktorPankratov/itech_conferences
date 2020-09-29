@@ -12,12 +12,19 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <nav class="navbar navbar-light navbar-laravel">
-                    <a class="btn btn-primary" href="{{ route('conference.participants.index', $conferenceDetail->id) }}">
+                    <a class="btn btn-primary"
+                       href="{{ route('conference.participants.index', $conferenceDetail->id) }}">
                         {{ __('All participants') }}
                     </a>
-                    <a class="btn btn-warning float-right" href="{{ route('conference.participants.create', $conferenceDetail->id) }}">
+                    @php
+                        $today = \Illuminate\Support\Carbon::now()->toDateString();
+                    @endphp
+                    @if ($today <= $conferenceDetail->start_time)
+                    <a class="btn btn-warning float-right"
+                       href="{{ route('conference.participants.create', $conferenceDetail->id) }}">
                         {{ __('Register for conference') }}
                     </a>
+                    @endif
                 </nav>
                 <div class="card">
                     <div class="card-header">

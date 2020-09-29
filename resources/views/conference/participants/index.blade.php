@@ -11,9 +11,16 @@
                     <a class="btn btn-primary" href="{{ route('conference.show', $conferenceDetail->id) }}">
                         {{ __('Back to conference') }}
                     </a>
-                    <a class="btn btn-warning float-right" href="{{ route('conference.participants.create', $conferenceDetail->id) }}">
-                        {{ __('Register for conference') }}
-                    </a>
+
+                    @php
+                        $today = \Illuminate\Support\Carbon::now()->toDateString();
+                    @endphp
+                    @if ($today <= $conferenceDetail->start_time)
+                        <a class="btn btn-warning float-right"
+                           href="{{ route('conference.participants.create', $conferenceDetail->id) }}">
+                            {{ __('Register for conference') }}
+                        </a>
+                    @endif
                 </nav>
                 <div class="card">
                     <div class="card-header">
