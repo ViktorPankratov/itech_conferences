@@ -21,6 +21,15 @@ class DepartmentRepository extends CoreRepository
     }
 
     /**
+     * @param $id
+     * @return Model
+     */
+    public function getItem($id)
+    {
+        return $this->startConditions()->findOrFail($id);
+    }
+
+    /**
      * @return Collection
      */
     public function getList()

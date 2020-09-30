@@ -85,6 +85,7 @@ class ParticipantController extends Controller
         }
 
         if ($participantResult && $lectureResult) {
+            $this->sendBitrix24($data);
             return redirect()->route('conference.show', $conferenceId)
                 ->with(['participant_save_success' => __("Successfully registered for conference")]);
         } else {
@@ -137,5 +138,52 @@ class ParticipantController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $data
+     */
+    protected function sendBitrix24($data)
+    {
+        $queryUrl = 'https://b24-avi8zs.bitrix24.ru/rest/1/z1xpt1zgey2e7ce5/crm.lead.add.json';
+
+        $participantDepartment = $this->departmentRepository->getItem($data['participant']['department_id']);
+        $conference = $this->conferenceRepository->getItem($data['participant']['conference_id']);
+        $queryData = http_build_query(array(
+            'fields' => array(
+                'TITLE'       => 'Заявка от ' . $data['participant']['first_name'] . ' ' . $data['participant']['last_name'],
+                'NAME'        => $data['participant']['first_name'],
+                'SECOND_NAME' => $data['participant']['last_name'],
+                'EMAIL' => Array(
+                    "n0" => Array(
+                        "VALUE"      => $data['participant']['email_address'],
+                        "VALUE_TYPE" => "WORK",
+                    ),
+                ),
+                'PHONE' => Array(
+                    "n0" => Array(
+                        "VALUE"      => $data['participant']['phone_number'],
+                        "VALUE_TYPE" => "WORK",
+                    ),
+                ),
+                'COMPANY_TITLE'       => $participantDepartment->name,
+                'COMMENTS'            => $conference->name . "<br>" .
+                                         $data['lecture']['title'] ??= "",
+                'SOURCE_DESCRIPTION'  => 'CRM-форма'
+            ),
+            'params' => array("REGISTER_SONET_EVENT" => "Y")
+        ));
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL            => $queryUrl,
+            CURLOPT_POSTFIELDS     => $queryData,
+        ));
+        curl_exec($curl);
+        curl_close($curl);
     }
 }
