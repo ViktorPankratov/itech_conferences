@@ -145,7 +145,7 @@ class ParticipantController extends Controller
      */
     protected function sendBitrix24($data)
     {
-        $queryUrl = 'https://b24-avi8zs.bitrix24.ru/rest/1/z1xpt1zgey2e7ce5/crm.lead.add.json';
+        $queryUrl = 'https://b24-fz7x3w.bitrix24.ru/rest/1/8fucpc851mn1n0ig/crm.lead.add.json';
 
         $participantDepartment = $this->departmentRepository->getItem($data['participant']['department_id']);
         $conference = $this->conferenceRepository->getItem($data['participant']['conference_id']);
