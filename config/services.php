@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'bx24' => [
+        'url'   => env('BX24_ACCESS_URL'),
+        'token' => env('BX24_ACCESS_TOKEN'),
+    ]
 ];

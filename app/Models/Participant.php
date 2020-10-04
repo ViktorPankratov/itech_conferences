@@ -33,4 +33,12 @@ class Participant extends Model
     {
         return $this->belongsTo('App\Models\Department', 'department_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function conference()
+    {
+        return $this->belongsTo('App\Models\Conference', 'conference_id');
+    }
 }
