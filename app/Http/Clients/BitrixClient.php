@@ -84,7 +84,7 @@ class BitrixClient
         ];
 
         try {
-            $result = $this->request($queryData, 'cm.lead.add');
+            $result = $this->request($queryData, 'crm.lead.add');
         } catch (\Exception $exception) {
             $log = [
                 'code' => $exception->getCode(),
